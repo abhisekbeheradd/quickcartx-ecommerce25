@@ -1,0 +1,420 @@
+
+<!--html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+
+
+<!--nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav" >
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}" href="#">home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}">0</span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+<div class="container" style="margin-top: 30px">
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Categories</h4>
+            <ul class="list-group">
+                <a th:href="@{/shop}"><li class="list-group-item">All Products</li></a>
+                <a href="" th:each="category, iStat : ${categories}"
+                   th:href="@{/shop/category/{id}(id=${category.id})}"><li
+                               class="list-group-item" th:text="${category.name}"></li></a>
+
+            </ul>
+        </div>
+
+
+
+
+
+
+        <div class="col-sm-9">
+            <div class="card" style="margin-top: 20px" th:each="product : ${products}">
+                <div class="row no-gutters">
+                    <div class="col-sm-5 d-flex justify-content-center"><img class="" height="150px" width="150px" th:src="@{${'/productImages/' + product.imageName}}" th:alt="${product.name}">
+                    </div>
+                        
+                    <div class="col-sm-7 d-flex justify-content-center">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}"></h5>
+                            <h4>₹ <span th:text="${product.price}"></span></h4>
+                            <p th:text="${product.description}" >Suresh Dasari is a founder and technical lead developer in tutlane.</p>
+                            <a href="#" th:href="@{/shop/viewproduct/{id}(id=${product.id})}" class="btn btn-primary">View Product</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+
+
+
+</html>
+
+<!-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <!--=============== Remix Icons cdn Link ===============-->
+    <link rel="stylesheet" href="fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js">
+
+    <!--=============== Custom Css Link ===============-->
+    <link rel="stylesheet" href="restaurant.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <!--=============== Main Container ===============-->
+    <div class="container" id="container">
+
+        <!--=============== Sidebar ===============-->
+        <div class="sidebar" id="sidebar">
+            <div class="menuBar">
+                <div class="profile">
+                    <img src="/images/abhi.jpg" width="50px" height="50px" alt="">
+                    <h1 class="name">Your Shop</h1>
+                </div>
+                <ul>
+                    <li class="activeLink">
+                        <i class="ri-home-line ri"></i>
+                        <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-book-open-line ri"></i>
+                       
+                        <a class="nav-link" th:href="@{/}" href="#">home</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-settings-line ri"></i>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+
+                    </li>
+                    
+                    <li>
+                        <i class="ri-settings-line ri"></i>
+                        <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-file-text-line ri"></i>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+                    </li>
+            
+                </ul>
+
+                <div class="card">
+                    <img src="/images/pngegg (1).png" width="150px" height="150px" alt="">
+                    <h1>faster<br> delivery</h1>
+                    <h2>learn more</h2>
+                    <i class="ri-arrow-right-line ri"></i>
+                </div>
+            </div>
+        </div>
+
+        <!--=============== Main ===============-->
+        <div class="main" id="main">
+
+            <!--=============== Header ===============-->
+            <div class="header" id="header">
+                <div class="greeting">
+                    <h1>Welcome to <br> our Shop</h1>
+                   
+                </div>
+              
+                <div class="searchbox">
+                    <input type="text" placeholder="Search" >
+                    <i class="ri-search-line ri"></i>
+                   
+                </div>
+          
+
+                <div class="cart">
+                    <a class="ri-shopping-cart-2-line ri" th:href="@{/cart}" href="#"></a>
+                   
+                    <span class="nav-link" th:text="${cartCount}">0</span>
+                </div>
+            </div>
+
+            <!--=============== Category ===============-->
+            <div class="category" id="category">
+                <div class="categoryItem">
+                    <div class="card">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/042/841/580/small/fast-food-board-with-hamburger-french-fries-on-transparent-background-png.png" width="100px" height="100px" alt="">
+                        <a th:href="@{/shop}"><li class="list-group-item">All</li></a>
+                    </div>
+
+
+                    <div class="card">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/045/761/396/small/fast-food-isolated-free-png.png" width="100px" height="100px" alt="">
+                        <h1>pizza</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/724/529/small/hot-and-crispy-fried-chicken-isolated-on-transparent-background-fresh-pieces-of-crispy-fried-chicken-fast-food-generative-ai-free-png.png" width="100px" height="100px" alt="">
+                        <h1>mutton</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/036/333/993/small/ai-generated-fast-food-feast-with-burgers-and-fries-png.png" width="100px" height="100px" alt="">
+                        <h1>chowmin</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/048/778/486/small/thai-grilled-fish-with-a-side-of-chili-sauce-png.png" width="100px" height="100px" alt="">
+                        <h1>fish</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="item8.jpg" width="100px" height="100px" alt="">
+                        <h1>role</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="item9.jpg" width="100px" height="100px" alt="">
+                        <h1>chowmin</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="item10.jpg" width="100px" height="100px" alt="">
+                        <h1>subway</h1>
+                    </div>
+
+                    <div class="card">
+                        <img src="item11.jpg" width="100px" height="100px" alt="">
+                        <h1>donuts</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!--=============== Offer ===============-->
+            <div class="offer" id="offer">
+                <div class="card">
+                    <h1>50% off</h1>
+                    <h2>the full price of burger</h2>
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/045/839/654/small/grilled-fish-in-a-plate-on-transparent-background-png.png" width="80px" height="80px" alt="">
+                </div>
+            </div>
+
+            <!--=============== Item ===============-->
+            <div class="item" id="item">
+                <div class="itemHeader">
+                    <div class="tittle">
+                        <h1>all item</h1>
+                        <i class="ri-arrow-left-right-line ri"></i>
+                    </div>
+
+                    <div class="viewAll">
+                        <h1>view all</h1>
+                        <i class="ri-arrow-right-line ri"></i>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="itemCard" th:each="product : ${products}">
+                        <img class="" height="90px" width="90px" th:src="@{${'/productImages/' + product.imageName}}" th:alt="${product.name}">
+                        <h1 class="itemTittle" th:text="${product.name}"></h1>
+                        <p th:text="${product.description}" >Suresh Dasari is a founder </p>
+                    
+                        <a href="#" th:href="@{/shop/viewproduct/{id}(id=${product.id})}" class="btn btn-primary">View</a>
+                        <i class="ri-heart-fill" th:text="${product.price}"></i>
+                       
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/048/034/697/small/fast-food-board-with-hamburger-french-fries-isolated-on-transparent-background-free-png.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">salmon</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$56</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/035/197/704/small/ai-generated-tasty-hamburger-with-fries-isolated-on-transparent-background-png.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">chicken</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$64</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>  
+
+                    <div class="itemCard">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/575/175/small/pizza-with-mozzarella-cheese-tomato-kiwi-and-olives-ai-generated-free-png.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">fish tomato</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$39</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/575/175/small/pizza-with-mozzarella-cheese-tomato-kiwi-and-olives-ai-generated-free-png.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">salmon</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$56</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/575/175/small/pizza-with-mozzarella-cheese-tomato-kiwi-and-olives-ai-generated-free-png.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">chicken</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$64</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>  
+
+                    <div class="itemCard">
+                        <img src="item22.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">fish tomato</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$39</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="item20.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">salmon</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$56</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+                    <div class="itemCard">
+                        <img src="item25.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">chicken</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$64</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>  
+
+                    <div class="itemCard">
+                        <img src="item22.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">fish tomato</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$39</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>
+
+
+                    <div class="itemCard">
+                        <img src="item25.png" width="90px" height="90px" alt="">
+                        <h1 class="itemTittle">chicken</h1>
+                        <p>Lorem ipsum is probably the most popular dummy text.</p>
+                        <span class="price">$64</span>
+                        <i class="ri-heart-fill"></i>
+                    </div>  
+                </div>
+            </div>
+
+            <!--=============== Article ===============-->
+            <div class="article" id="article">
+                <div class="articleHeader">
+                    <h1>Categories</h1>
+                    <i class="ri-arrow-right-line ri"></i>
+                </div>
+
+                <div class="box">
+                    <div class="list">
+                        <div class="icon">
+                            <img src="/images/abhi.jpg"width="30px" height="30px" alt="">
+                        </div>
+                        
+
+                       
+
+                        <div class="content">
+                        
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    
+                                    <h4>
+                                    <ul class="list-group">
+                                        <a th:href="@{/shop}"><li class="list-group-item">All Products</li></a>
+                                        
+                                        
+                                        <a href="" th:each="category, iStat : ${categories}"
+                                           th:href="@{/shop/category/{id}(id=${category.id})}" style="color: black;">
+                                           <br>
+                                           <br><li
+                                                       class="list-group-item" th:text="${category.name}"></li></a>
+                        
+                                    </ul>
+                                    </h4>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+
+</html>

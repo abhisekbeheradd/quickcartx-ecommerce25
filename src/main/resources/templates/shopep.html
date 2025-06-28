@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <!--=============== Remix Icons cdn Link ===============-->
+    <link rel="stylesheet" href="fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js">
+
+    <!--=============== Custom Css Link ===============-->
+    <link rel="stylesheet" href="restaurant.css">
+    <link rel="stylesheet" href="cs/style.css">
+</head>
+
+<body>
+    <!--=============== Main Container ===============-->
+    <div class="container" id="container">
+
+        <!--=============== Sidebar ===============-->
+        <div class="sidebar" id="sidebar">
+            <div class="menuBar">
+                <div class="profile">
+                    <img src="ADD THE LOGO PICHEEHHEEE HEE" width="40px" height="40px" alt="">
+                    <h1 class="name">tom holland</h1>
+                </div>
+
+                <ul>
+                    <li class="activeLink">
+                        <i class="ri-home-line ri"></i>
+                        <a class="nav-link" th:href="@{/}" href="#">home</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-book-open-line ri"></i>
+                        <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-file-text-line ri"></i>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+                    </li>
+
+                    <li>
+                        <i class="ri-settings-line ri"></i>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+                    </li>
+                    <li>
+                        <i class="ri-settings-line ri"></i>
+                        <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                    </li>
+                    <li>
+                        <i class="ri-settings-line ri"></i>
+                        <span class="nav-link" th:text="${cartCount}">0</span>
+                    </li>
+                </ul>
+
+                <div class="card">
+                    <img src="pngegg (1).png" width="150px" height="150px" alt="">
+                    <h1>faster<br> delivery</h1>
+                    <h2>learn more</h2>
+                    <i class="ri-arrow-right-line ri"></i>
+                </div>
+            </div>
+        </div>
+  <!--=============== Main ===============-->
+  <div class="main" id="main">
+
+    <!--=============== Header ===============-->
+    <div class="header" id="header">
+        <div class="greeting">
+            <h1>Welcome to <br>Near</h1>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/039/230/474/small/ai-generated-fast-food-fast-food-free-png.png" width="20px" height="20px" alt="">
+        </div>
+
+        <div class="searchbox">
+            <input type="text" placeholder="Search">
+            <i class="ri-search-line ri"></i>
+        </div>
+
+        <div class="cart">
+            <i class="ri-shopping-cart-2-line ri"></i>
+            <span>1</span>
+        </div>
+    </div>
+
+    <!--=============== Category ===============-->
+    <div class="category" id="category">
+        <div class="categoryItem">
+            <div class="card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/042/841/580/small/fast-food-board-with-hamburger-french-fries-on-transparent-background-png.png" width="100px" height="100px" alt="">
+                <h1>all</h1>
+            </div>
+
+            <div class="card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/048/778/486/small/thai-grilled-fish-with-a-side-of-chili-sauce-png.png" width="100px" height="100px" alt="">
+                <h1>fish</h1>
+            </div>
+            <div class="card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/048/778/486/small/thai-grilled-fish-with-a-side-of-chili-sauce-png.png" width="100px" height="100px" alt="">
+                <h1>fish</h1>
+            </div>
+            <div class="card">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/048/778/486/small/thai-grilled-fish-with-a-side-of-chili-sauce-png.png" width="100px" height="100px" alt="">
+                <h1>fish</h1>
+            </div>
+
+            <div class="card">
+                <img src="item8.jpg" width="100px" height="100px" alt="">
+                <h1>role</h1>
+            </div>
+        </div>
+    </div>
+
+    <!--=============== Offer ===============-->
+    <div class="offer" id="offer">
+        <div class="card">
+            <h1>50% off</h1>
+            <h2>the full price of burger</h2>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/045/839/654/small/grilled-fish-in-a-plate-on-transparent-background-png.png" width="50px" height="60px" alt="">
+        </div>
+    </div>
+
+    <!--=============== Item ===============-->
+    <div class="container" style="margin-top: 30px">
+        <div class="row">
+            <div class="col-sm-3">
+                <h4>Categories</h4>
+                <ul class="list-group">
+                    <a th:href="@{/shop}"><li class="list-group-item">All Products</li></a>
+                    <a href="" th:each="category, iStat : ${categories}"
+                       th:href="@{/shop/category/{id}(id=${category.id})}"><li
+                                   class="list-group-item" th:text="${category.name}"></li></a>
+    
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <div class="card" style="margin-top: 20px" th:each="product : ${products}">
+                    <div class="row no-gutters">
+                        <div class="col-sm-5 d-flex justify-content-center">
+                            <img class="" height="150px" width="150px" th:src="@{${'/productImages/' + product.imageName}}" th:alt="${product.name}">
+                        </div>
+                        <div class="col-sm-7 d-flex justify-content-center">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.name}"></h5>
+                                <h4>₹ <span th:text="${product.price}"></span></h4>
+                                <p th:text="${product.description}" >Suresh Dasari is a founder and technical lead developer in tutlane.</p>
+                                <a href="#" th:href="@{/shop/viewproduct/{id}(id=${product.id})}" class="btn btn-primary">View Product</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+ 
+    <!--=============== Article ===============-->
+    <!--div class="article" id="article">
+        
+
+            <div class="list">
+                <div class="icon">
+                    <img src="emoji3.png" width="30px" height="30px" alt="">
+                </div>
+
+                <div class="content">
+                    <p>wha you need to know about carbonara</p>
+                    <div class="comment">
+                        <img src="pic29.jpg" width="25px" height="25px" alt="">
+                        <img src="pic21.jpg" width="25px" height="25px" alt="">
+                        <div class="likes">
+                            <img src="like.png" width="25px" height="25px" alt="">
+                            <span>127+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <div class="list">
+                <div class="icon">
+                    <img src="emoji2.png" width="30px" height="30px" alt="">
+                </div>
+
+                <div class="content">
+                    <p>Coronavirus update(Live): <span>60,736,80</span>Cases</p>
+                    <div class="comment">
+                        <img src="pic29.jpg" width="25px" height="25px" alt="">
+                        <img src="pic21.jpg" width="25px" height="25px" alt="">
+                        <div class="likes">
+                            <img src="like.png" width="25px" height="25px" alt="">
+                            <span>84+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+   
+
+            <div class="list">
+                <div class="icon">
+                    <img src="emoji4.png" width="30px" height="30px" alt="">
+                </div>
+
+                <div class="content">
+                    <p>How to cook turkey on natural gas grills </p>
+                    <div class="comment">
+                        <img src="pic29.jpg" width="25px" height="25px" alt="">
+                        <img src="pic21.jpg" width="25px" height="25px" alt="">
+                        <div class="likes">
+                            <img src="like.png" width="25px" height="25px" alt="">
+                            <span>58+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div-->
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
